@@ -1,21 +1,23 @@
 import React, { Component } from 'react'
 
-
 class Usuarios extends Component {
   constructor (props) {
     super(props)
     this.state = { users: [] ,}
 
-    this.componentWillMount = this.componentWillMount.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
 
   }
   
-  componentWillMount(){
+  componentDidMount(){
     
-    fetch('http://localhost:3003/api/usuarios')
+    fetch('http://localhost:3000/api/usuarios')
     .then((response) => {
+      console.log(response)
     })
     .then((users) => {
+      console.log(`SEGUNDA PROMESA${users}`)
+
       this.setState({users: users})
     })
     
@@ -27,6 +29,7 @@ class Usuarios extends Component {
       <section className='users-section' id='users'>
         <h2 className='section-title'>Usuarios</h2>
         <div className='posts-container' ref='carousel'>
+          {console.log(this.state.users)}
         </div>
 
         <style jsx>{`
