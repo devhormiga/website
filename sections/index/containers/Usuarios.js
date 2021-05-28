@@ -1,24 +1,20 @@
 import React, { Component } from 'react'
+import Users from '../components/Users'
 
 class Usuarios extends Component {
   constructor (props) {
     super(props)
     this.state = { users: [] ,}
 
-    this.componentDidMount = this.componentDidMount.bind(this);
-
   }
   
   componentDidMount(){
     
     fetch('http://localhost:3000/api/usuarios')
-    .then((response) => {
-      console.log(response)
-    })
-    .then((users) => {
-      console.log(`SEGUNDA PROMESA${users}`)
-
-      this.setState({users: users})
+    .then(response => response.json())
+      .then((users) => {
+        this.setState({users: users})
+      
     })
     
   }
@@ -28,9 +24,18 @@ class Usuarios extends Component {
     return (
       <section className='users-section' id='users'>
         <h2 className='section-title'>Usuarios</h2>
-        <div className='posts-container' ref='carousel'>
-          {console.log(this.state.users)}
-        </div>
+        
+        
+          {this.state.users.map((user, i)=>
+              <Users
+                title={user.title}
+                body={user.body}
+                id={user.id}
+              />
+
+            )}
+          
+       
 
         <style jsx>{`
           .users-section {
@@ -39,7 +44,7 @@ class Usuarios extends Component {
             padding-bottom: 85px;
             overflow-x: hidden;
             margin:auto;
-            background-color:var(--dark-accent);
+            background-color:var(--white);
           }
           .section-title{
             color:#000;
